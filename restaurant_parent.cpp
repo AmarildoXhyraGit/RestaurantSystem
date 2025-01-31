@@ -9,6 +9,7 @@
 
 using namespace std;
 
+unordered_map<string, string> users;
 
 // Structure to store logged-in waiters and their orders
 struct Waiter {
