@@ -9,12 +9,6 @@
 
 using namespace std;
 
-// Predefined usernames and passwords (will be saved in users.txt)
-unordered_map<string, string> users = {
-    {"waiter1", "pass123"},
-    {"waiter2", "abc123"},
-    {"waiter3", "xyz789"}
-};
 
 // Structure to store logged-in waiters and their orders
 struct Waiter {
