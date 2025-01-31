@@ -1,3 +1,4 @@
+// restaurant_child.cpp
 #include <iostream>
 #include <windows.h>
 #include <cstdlib>
@@ -16,14 +17,14 @@ string generateBarcode(int tableNumber) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        cout << "❌ Error: No table number provided.\n";
+        cout << " Error: No table number provided.\n";
         return 1;
     }
 
     int tableNumber = atoi(argv[1]); // Convert argument to int
     string barcode = generateBarcode(tableNumber);
     
-    cout << "✅ Order confirmed for Table " << tableNumber << " - Barcode: " << barcode << "\n";
+    cout << "Order confirmed for Table " << tableNumber << " - Barcode: " << barcode << "\n";
     Sleep(3000); // Simulate processing time
     cout << "🔵 Order processing complete for Table " << tableNumber << ".\n";
 
