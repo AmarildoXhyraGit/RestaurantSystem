@@ -75,6 +75,8 @@ bool login(string& username) {
     cout << "Invalid credentials. Try again.\n";
     return false;  // Invalid credentials
 }
+
+// Function to generate a barcode
 string generateBarcode() {
     string barcode = "";
     string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  // Allowed characters for barcode
@@ -109,7 +111,9 @@ void takeOrderFromCustomer(Waiter& waiter) {
             break;
         }
     }
- waiter.barcode = generateBarcode();
+
+    waiter.barcode = generateBarcode();
+    
     // Save the orders to orders.txt
     ofstream orderFile("orders.txt", ios::app);  // Open file in append mode
     if (orderFile.is_open()) {
@@ -131,18 +135,18 @@ void takeOrderFromCustomer(Waiter& waiter) {
 // Function to create child processes for order processing
 void createChildProcesses(vector<Waiter> waiters) {
     for (Waiter& waiter : waiters) {
-        cout << " Processing order for Table " << waiter.tableNumber << " (Waiter: " << waiter.username << ")...\n";
-
-        // Setup process startup info
-        STARTUPINFO si = { sizeof(si) };
-        PROCESS_INFORMATION pi;
+        cout << "Processing order for Table " << waiter.tableNumber << " (Waiter: " << waiter.username << ")...\n";
 
         // Command to execute child process (restaurant_child.exe)
         string command = "restaurant_child.exe " + to_string(waiter.tableNumber);
 
-        // Convert command to LPSTR
-        char cmd[MAX_PATH];
-        strcpy_s(cmd, command.c_str());
+        // Convert std::string to char* for CreateProcess
+        char cmd[256];
+        strcpy(cmd, command.c_str());
+
+        // Setup process startup info
+        STARTUPINFO si = { sizeof(si) };
+        PROCESS_INFORMATION pi;
 
         // Create a new process for each table order
         if (!CreateProcess(NULL, cmd, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
@@ -196,4 +200,4 @@ int main() {
 
     cout << " All orders have been processed!\n";
     return 0;
-} 
+}
