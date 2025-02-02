@@ -1,0 +1,15 @@
+Barcode: TP4TKYVD
+Waiter: ana
+Table: 2
+Order Items:
+- pepsi
+- la
+------------------------
+Barcode: GX59JHGY
+Waiter: herkul
+Table: 7
+Order Items:
+- suxhuk
+- le
+- nabis
+------------------------

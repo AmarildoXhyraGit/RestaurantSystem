@@ -16,6 +16,7 @@ struct Waiter {
     string username;
     int tableNumber;
     vector<string> orderItems;  // Store the items for each waiter
+    string barcode; 
 };
 
 // Function to register a new user
@@ -74,6 +75,17 @@ bool login(string& username) {
     cout << "Invalid credentials. Try again.\n";
     return false;  // Invalid credentials
 }
+string generateBarcode() {
+    string barcode = "";
+    string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  // Allowed characters for barcode
+    srand(time(0));  // Seed for random number generation
+
+    for (int i = 0; i < 8; i++) {
+        barcode += characters[rand() % characters.length()];  // Select random character
+    }
+
+    return barcode;
+}
 
 // Function to take orders from the customer
 void takeOrderFromCustomer(Waiter& waiter) {
@@ -97,10 +109,11 @@ void takeOrderFromCustomer(Waiter& waiter) {
             break;
         }
     }
-
+ waiter.barcode = generateBarcode();
     // Save the orders to orders.txt
     ofstream orderFile("orders.txt", ios::app);  // Open file in append mode
     if (orderFile.is_open()) {
+        orderFile << "Barcode: " << waiter.barcode << "\n";
         orderFile << "Waiter: " << waiter.username << "\n";
         orderFile << "Table: " << waiter.tableNumber << "\n";
         orderFile << "Order Items:\n";
@@ -183,4 +196,4 @@ int main() {
 
     cout << " All orders have been processed!\n";
     return 0;
-}
+} 
